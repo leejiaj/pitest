@@ -49,7 +49,9 @@ import org.pitest.mutationtest.engine.gregor.mutators.RemoveConditionalMutator;
 import org.pitest.mutationtest.engine.gregor.mutators.RemoveConditionalMutator.Choice;
 import org.pitest.mutationtest.engine.gregor.mutators.ReturnValsMutator;
 import org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator;
+import org.pitest.mutationtest.engine.gregor.mutators.augmentation.ArithmeticOperandDeletion;
 import org.pitest.mutationtest.engine.gregor.mutators.augmentation.ArithmeticOperatorReplacementMutator;
+import org.pitest.mutationtest.engine.gregor.mutators.augmentation.RelationalOperatorReplacementMutator;
 import org.pitest.mutationtest.engine.gregor.mutators.experimental.NakedReceiverMutator;
 import org.pitest.mutationtest.engine.gregor.mutators.experimental.RemoveIncrementsMutator;
 import org.pitest.mutationtest.engine.gregor.mutators.experimental.RemoveSwitchMutator;
@@ -184,6 +186,43 @@ public final class Mutator {
     addGroup("STRONGER", stronger());
     addGroup("ALL", all());
     addGroup("NEW_DEFAULTS", newDefaults());
+
+    /**
+     * Augmenting mutator that replaces relational operators.
+     */
+    add(
+        "ROR_IFEQ",
+        new RelationalOperatorReplacementMutator(
+            RelationalOperatorReplacementMutator.OpcodeCompareToZero.IFEQ));
+    add(
+        "ROR_IFGE",
+        new RelationalOperatorReplacementMutator(
+            RelationalOperatorReplacementMutator.OpcodeCompareToZero.IFGE));
+    add(
+        "ROR_IFGT",
+        new RelationalOperatorReplacementMutator(
+            RelationalOperatorReplacementMutator.OpcodeCompareToZero.IFGT));
+    add(
+        "ROR_IFLE",
+        new RelationalOperatorReplacementMutator(
+            RelationalOperatorReplacementMutator.OpcodeCompareToZero.IFLE));
+    add(
+        "ROR_IFLT",
+        new RelationalOperatorReplacementMutator(
+            RelationalOperatorReplacementMutator.OpcodeCompareToZero.IFLT));
+    add(
+        "ROR_IFNE",
+        new RelationalOperatorReplacementMutator(
+            RelationalOperatorReplacementMutator.OpcodeCompareToZero.IFNE));
+    addGroup("ROR", ror());
+
+    /**
+     * Augmenting mutator that replaces binary arithmetic operations
+     * with their individual arguments.
+     */
+    add("REMOVE_FIRST_MUTATOR", new ArithmeticOperandDeletion(ArithmeticOperandDeletion.MutantType.REMOVE_FIRST_MUTATOR));
+    add("REMOVE_LAST_MUTATOR", new ArithmeticOperandDeletion(ArithmeticOperandDeletion.MutantType.REMOVE_LAST_MUTATOR));
+    addGroup("AOD", aod());
   }
 
   public static Collection<MethodMutatorFactory> all() {
@@ -268,6 +307,10 @@ public final class Mutator {
     return unique;
   }
 
+  public static Collection<MethodMutatorFactory> aod() {
+    return group(new ArithmeticOperandDeletion(ArithmeticOperandDeletion.MutantType.REMOVE_FIRST_MUTATOR), new ArithmeticOperandDeletion(ArithmeticOperandDeletion.MutantType.REMOVE_LAST_MUTATOR));
+  }
+
   private static Comparator<? super MethodMutatorFactory> compareId() {
     return (o1, o2) -> o1.getGloballyUniqueId().compareTo(o2.getGloballyUniqueId());
   }
@@ -280,6 +323,22 @@ public final class Mutator {
       }
       return i;
     };
+  }
+
+  public static Collection<MethodMutatorFactory> ror() {
+    return group(
+        new RelationalOperatorReplacementMutator(
+            RelationalOperatorReplacementMutator.OpcodeCompareToZero.IFEQ),
+        new RelationalOperatorReplacementMutator(
+            RelationalOperatorReplacementMutator.OpcodeCompareToZero.IFGE),
+        new RelationalOperatorReplacementMutator(
+            RelationalOperatorReplacementMutator.OpcodeCompareToZero.IFGT),
+        new RelationalOperatorReplacementMutator(
+            RelationalOperatorReplacementMutator.OpcodeCompareToZero.IFLE),
+        new RelationalOperatorReplacementMutator(
+            RelationalOperatorReplacementMutator.OpcodeCompareToZero.IFLT),
+        new RelationalOperatorReplacementMutator(
+            RelationalOperatorReplacementMutator.OpcodeCompareToZero.IFNE));
   }
 
 }
