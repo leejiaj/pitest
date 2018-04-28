@@ -35,6 +35,7 @@ import org.pitest.mutationtest.engine.gregor.mutators.ArgumentPropagationMutator
 import org.pitest.mutationtest.engine.gregor.mutators.BooleanFalseReturnValsMutator;
 import org.pitest.mutationtest.engine.gregor.mutators.BooleanTrueReturnValsMutator;
 import org.pitest.mutationtest.engine.gregor.mutators.ConditionalsBoundaryMutator;
+import org.pitest.mutationtest.engine.gregor.mutators.ArithmeticOperatorReplacementMutator;
 import org.pitest.mutationtest.engine.gregor.mutators.ConstructorCallMutator;
 import org.pitest.mutationtest.engine.gregor.mutators.EmptyObjectReturnValsMutator;
 import org.pitest.mutationtest.engine.gregor.mutators.IncrementsMutator;
@@ -106,6 +107,7 @@ public final class Mutator {
         ConditionalsBoundaryMutator.CONDITIONALS_BOUNDARY_MUTATOR);
 
     /**
+
      * Augmenting mutator that replaces an arithmetic expression
      * by each of the other ones.
      */
@@ -261,6 +263,7 @@ public final class Mutator {
         VoidMethodCallMutator.VOID_METHOD_CALL_MUTATOR,
         NegateConditionalsMutator.NEGATE_CONDITIONALS_MUTATOR,
         ConditionalsBoundaryMutator.CONDITIONALS_BOUNDARY_MUTATOR,
+        ArithmeticOperatorReplacementMutator.ARITHMETIC_OPERATOR_REPLACEMENT_MUTATOR,
         IncrementsMutator.INCREMENTS_MUTATOR);
   }
 
@@ -273,6 +276,7 @@ public final class Mutator {
         VoidMethodCallMutator.VOID_METHOD_CALL_MUTATOR,
         NegateConditionalsMutator.NEGATE_CONDITIONALS_MUTATOR,
         ConditionalsBoundaryMutator.CONDITIONALS_BOUNDARY_MUTATOR,
+        ArithmeticOperatorReplacementMutator.ARITHMETIC_OPERATOR_REPLACEMENT_MUTATOR,
         IncrementsMutator.INCREMENTS_MUTATOR), betterReturns());
   }
 

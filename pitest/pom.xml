@@ -13,6 +13,7 @@
 	<description>Mutation testing system for Java.</description>
 
 	<build>
+	<pluginManagement>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -162,6 +163,8 @@
 				</executions>
 			</plugin>
 		</plugins>
+	</pluginManagement>
+		
 
 		<resources>
 			<resource>

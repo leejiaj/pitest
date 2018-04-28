@@ -13,7 +13,8 @@
 	<description>Pitest entry point</description>
 
 	<build>
-		<plugins>
+	<pluginManagement>
+			<plugins>
 		    <!-- include ASM in the jar, not relocated as will never share classpath with dependencies -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -107,6 +108,8 @@
 				</executions>
 			</plugin>
 		</plugins>
+	</pluginManagement>
+	
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
