@@ -49,6 +49,7 @@ import org.pitest.mutationtest.engine.gregor.mutators.RemoveConditionalMutator;
 import org.pitest.mutationtest.engine.gregor.mutators.RemoveConditionalMutator.Choice;
 import org.pitest.mutationtest.engine.gregor.mutators.ReturnValsMutator;
 import org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator;
+import org.pitest.mutationtest.engine.gregor.mutators.augmentation.AddIncrementIncrementMutator;
 import org.pitest.mutationtest.engine.gregor.mutators.augmentation.ArithmeticOperandDeletion;
 import org.pitest.mutationtest.engine.gregor.mutators.augmentation.ArithmeticOperatorReplacementMutator;
 import org.pitest.mutationtest.engine.gregor.mutators.augmentation.RelationalOperatorReplacementMutator;
@@ -117,6 +118,13 @@ public final class Mutator {
      */
     add("INCREMENTS", IncrementsMutator.INCREMENTS_MUTATOR);
 
+    
+    /**
+     * Augmenting mutator that mutates increments to increments of 
+     * increments
+     */
+    add("ADD_INCREMENT_INCREMENT_MUTATOR", AddIncrementIncrementMutator.ADD_INCREMENT_INCREMENT_MUTATOR);
+    
     /**
      * Optional mutator that removes local variable increments.
      */
